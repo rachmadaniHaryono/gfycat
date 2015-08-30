@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #-------------------------------------------------------------------------------
 # Name:        gfycat uploader
 # Purpose:
@@ -227,5 +228,5 @@ def main():
             
     pass
 
-if __init__  == 'main':
+if __name__ == "__main__":
     main()
