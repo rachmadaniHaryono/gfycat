@@ -13,6 +13,9 @@ from collections import namedtuple
 from args import args
 from argparse import ArgumentParser
 import os
+import sys
+
+
 class gfycat(object):
 
     """
@@ -188,44 +191,42 @@ class _gfycatCheck(_gfycatUtils):
 
 def parse_args(args):
     parser = ArgumentParser(description='This program allows you to interact with gfycat.com')
-    
-    parser.add_argument('upload', help='Upload from remote location or local machine')
-    parser.add_argument('query', help='Query the uploaded url, an existing gfycat link, or if a link already exist')
-    parser.add_argument('download', help='Download the file')
+    parser.add_argument('--mode', default='download', help='upload, query or download')
+    '''
+    subparsers.add_parser('upload', help='Upload from remote location or local machine')
+    subparsers.add_parser('query', help='Query the url or id')
+    # the uploaded url, an existing gfycat link, or if a link already exist
+    subparsers.add_parser('download', help='Download the file')
+    '''
     parser.add_argument('INPUT', help='URL of the gif/webm, gfycat name')
-    parser.add_argument('--output-format', help='Output format of the result')
-    parser.add_argument('--download-dir', default=os.getcwd(), help='Download directory')
+    parser.add_argument('--output', default='formated', metavar='FORMAT', help='Output format of the result')
+    parser.add_argument('--download', metavar='DIR', default=os.getcwd(), help='Download directory')
     parsed_argument = parser.parse_args(args)
-    
+
     return parsed_argument
 
 def main():
     args = parse_args(sys.argv[1:])
-    
-    gfy = gfycat()
-    if args.upload :
-        upload = gfy.upload(args.INPUT)
-    elif args.query :
-        if args.GFYCAT_URL : 
-            upload = gfy.more(args.GFYCAT_URL)
-        elif args.INPUT : 
-            upload = gfy.more(args.INPUT)
-    elif args.download :
-        if args.INPUT :
-            downloadMe = gfycat.upload(url)
-            downloadMe.download(args.download_dir)
 
-    if args.output_format and not args.download:
-        if args.output_format == 'json':
+    gfy = gfycat()
+    if args.mode =='upload':
+        upload = gfy.upload(args.INPUT)
+    elif args.mode == 'query':
+        upload = gfy.more(args.INPUT)
+    elif args.mode == 'download' :
+        downloadMe = gfy.upload(args.INPUT)
+        downloadMe.download(args.download)
+
+    if args.output and args.mode != 'download':
+        if args.output == 'json':
             print upload.json()
-        elif args.output_format == 'raw':
+        elif args.output == 'raw':
             print upload.raw()
-        elif args.output_format == 'formated':
+        elif args.output == 'formated':
             print upload.formated()
         else :
-            print upload.get(args.output_format)
+            print upload.get(args.output)
 
-            
     pass
 
 if __name__ == "__main__":

@@ -55,7 +55,7 @@ print upload.formated()
     "gifSize": 378641,
     "gifUrl": "http://zippy.gfycat.com/SimilarEmbellishedBinturong.gif",
     "gfysize": 368876
-    
+
 print upload.get("webmUrl")
 
     http://zippy.gfycat.com/SimilarEmbellishedBinturong.webm
@@ -96,7 +96,7 @@ print query.formated()
     "subreddit": "gfycats",
     "gfyName": "SharpExcellentAbalone",
     ...
-    
+
 print upload.get("redditIdText")
 
     flying_through_an_iceberg
@@ -131,7 +131,7 @@ print check.formated()
     "gfyUrl": "http://gfycat.com/ScaryGrizzledComet",
     "urlKnown": true,
     "gifUrl": "http://zippy.gfycat.com/ScaryGrizzledComet.gif"
-    
+
 print check.get("urlKnown")
 
     True
@@ -155,8 +155,23 @@ Note that you dont have to specify the file name, but the location will have to 
 
 If you use this way, the file name will be "gfyName".mp4
 
+## CLI Usage:
+
+    gfycat.py [-h] [--mode MODE] [--output FORMAT] [--download DIR] INPUT
+
+positional arguments:
+
+    INPUT            URL of the gif/webm, gfycat name
+
+optional arguments:
+
+    -h, --help       show this help message and exit
+    --mode MODE      upload, query or download
+    --output FORMAT  Output format of the result
+    --download DIR   Download directory
+
 ### TODO:
 - Finish formated() function
 - Tests
 
-Please note that although this module is working, there might still be some issues with it. if you find anything, please let me know! 
+Please note that although this module is working, there might still be some issues with it. if you find anything, please let me know!
