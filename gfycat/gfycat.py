@@ -14,7 +14,7 @@ from args import args
 from argparse import ArgumentParser
 import os
 import sys
-
+from urllib2 import URLError
 
 class gfycat(object):
 
@@ -215,8 +215,11 @@ def main():
         upload = gfy.more(args.INPUT)
     elif args.mode == 'download' :
         downloadMe = gfy.upload(args.INPUT)
-        downloadMe.download(args.download)
-
+        # check if download folder endscharacter
+        if args.download.endswith(('/','\\')):
+            downloadMe.download(args.download)
+        else :
+            downloadMe.download(args.download+os.sep)
     if args.output and args.mode != 'download':
         if args.output == 'json':
             print upload.json()
